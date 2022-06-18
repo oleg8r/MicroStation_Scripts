@@ -1,0 +1,37 @@
+#---------------------------------------------------------------------------------------
+#
+#  File Name: Change_Stage-B_Stamp_to_IFC.txt
+#  Purpose: To change "STAGE B" stamp to "ISSUED FOR CONSTRUCTION" stamp on the drawing
+#	    border in MicroStation.
+#  Documentation: This command file for batchprocess utility turns off "STAGE B" stamp 
+#	    and turns on "ISSUED FOR CONSTRUCTION" stamp on the drawing border in 
+#	    MicroStation.  	    
+#  Notes: Lines that start with the '#' character are treated as comments and ignored.
+#
+#  Revision History:
+#  Date               Name                  Revision
+#  --------------     -----------------     ---------------------
+#  2022-06-16         Oleg Savelev          created
+#
+#---------------------------------------------------------------------------------------
+
+# --- (Part 1) Standard Commands ---
+
+# Setting "Default" as active level to ensure the processed levels are not active
+LEVEL SET ACTIVE Default
+
+FILE DESIGN
+SAVE DESIGN
+
+
+# --- (Part 2) Changing "STAGE B" to "ISSUED FOR CONSTRUCTION" stamp by turning levels/layers Off & On ---
+
+# (Step 1) Turning OFF "ATSSE_Stage_B_Review" level
+LEVEL SET DISPLAY OFF file:CPG_EngBord1.dgn "ATSSE_Stage_B_Review";selview 1
+
+# (Step 2) Unfreezing & Turning ON "ATSSE_Stage_B_Review" level 
+LEVEL SET FROZEN OFF file:CPG_EngBord1.dgn "CPG_Stamp_9";selview 1
+LEVEL SET DISPLAY ON file:CPG_EngBord1.dgn "CPG_Stamp_9";selview 1
+
+FILE DESIGN
+SAVE DESIGN
